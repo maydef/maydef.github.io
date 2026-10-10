@@ -1,162 +1,1033 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fahmi Andriansyah — Industrial IoT, OT/IT Engineering, Smart Manufacturing and Cybersecurity portfolio.">
-  <title>Fahmi Andriansyah | Industrial IoT & Cybersecurity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Fahmi Andriansyah | Industrial IoT, Smart Manufacturing & OT/IT Cybersecurity</title>
+  
+  <meta name="title" content="Fahmi Andriansyah — Industrial IoT & OT/IT Engineering Solutions">
+  <meta name="description" content="Company profile dan solusi rekayasa teknologi: Industrial IoT, Smart Manufacturing (OEE & Digital Andon), arsitektur OT/IT berbasis ISA-95, serta standar keamanan siber IEC 62443.">
+  <meta name="keywords" content="Fahmi Andriansyah, Industrial IoT, Smart Manufacturing, OT IT Integration, OEE, Digital Andon, LoRaWAN, Modbus, IEC 62443, ISA-95, Predictive Maintenance, Cybersecurity, Laravel, Node.js">
+  <meta name="author" content="Fahmi Andriansyah">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://maydef.github.io/">
+  <meta property="og:title" content="Fahmi Andriansyah | Industrial IoT & OT/IT Cybersecurity">
+  <meta property="og:description" content="Engineering the bridge between the shop floor and the digital enterprise. Solusi komprehensif smart manufacturing dan keamanan industri.">
+  <meta property="og:image" content="assets/images/projects/oee-dashboard.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN (matching cargo.xpdc.co.id design system) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            },
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- SweetAlert2 for Sleek Modals -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Three.js for Interactive 3D Background Mesh -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-<header class="nav">
-  <a class="brand" href="#home">FA<span>.</span></a>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#expertise">Expertise</a>
-    <a href="#projects">Projects</a>
-    <a href="#security">Security</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
 
-<main>
-<section id="home" class="hero">
-  <div class="hero-grid">
-    <div>
-      <p class="eyebrow">INDUSTRIAL IoT · OT/IT · CYBERSECURITY</p>
-      <h1>Engineering the bridge between the <span>shop floor</span> and the digital world.</h1>
-      <p class="lead">Fahmi Andriansyah is an Industrial IoT and Cybersecurity professional focused on smart manufacturing, OT/IT integration, machine monitoring, predictive maintenance and secure industrial systems.</p>
-      <div class="actions">
-        <a class="btn primary" href="#projects">Explore Projects</a>
-        <a class="btn ghost" href="#contact">Get in Touch</a>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 loading-locked">
+
+  <!-- 1. PRELOADER -->
+  <div id="preloader">
+    <div class="loader-text">FAHMI ANDRIANSYAH</div>
+    <div class="loader-sub">Industrial IoT · Smart Factory · OT/IT Security</div>
+    <div class="w-48 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
+      <div class="w-full h-full bg-gradient-to-r from-blue-600 via-cyan-400 to-purple-600 animate-[pulse_1.5s_infinite]"></div>
+    </div>
+  </div>
+
+  <!-- 2. THREE.JS 3D WIREFRAME CANVAS BACKGROUND -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- 3. STICKY GLASSMORPHIC HEADER / NAVBAR -->
+  <header class="fixed top-0 left-0 w-full z-50 py-4 px-4 sm:px-8 transition-all duration-300">
+    <div class="max-w-7xl mx-auto glass-modern rounded-full px-5 sm:px-8 py-3 flex justify-between items-center shadow-lg border border-white/50 dark:border-slate-800/80">
+      
+      <!-- Brand Logo -->
+      <a href="#home" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-lg shadow-md group-hover:scale-105 transition-transform">
+          FA
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white leading-none">FAHMI ANDRIANSYAH</span>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-blue-600 dark:text-cyan-400 mt-0.5">Tech Solutions</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700 dark:text-slate-300">
+        <a href="#about" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_about">Tentang Kami</a>
+        <a href="#services" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_services">Layanan & Solusi</a>
+        <a href="#projects" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_portfolio">Portofolio</a>
+        <a href="#advantages" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_advantages">Keunggulan</a>
+        <a href="#certifications" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_cert">Sertifikasi</a>
+        <a href="#contact" class="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors" data-i18n="nav_contact">Kontak</a>
+      </nav>
+
+      <!-- Action Utilities: Lang, Theme & CTA -->
+      <div class="hidden sm:flex items-center gap-3">
+        <!-- Language Switcher -->
+        <button onclick="toggleLang()" title="Ganti Bahasa" class="px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-cyan-400 transition flex items-center gap-1">
+          <span class="lang-toggle-text">EN</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button onclick="toggleTheme()" title="Ubah Tema" class="theme-toggle-btn p-2 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+
+        <!-- CTA Button -->
+        <a href="#contact" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-full text-xs font-bold transition shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap">
+          Konsultasi Proyek
+        </a>
       </div>
-      <div class="metrics">
-        <div><strong>IIoT</strong><span>End-to-end systems</span></div>
-        <div><strong>OT/IT</strong><span>Integration & security</span></div>
-        <div><strong>24/7</strong><span>Monitoring mindset</span></div>
+
+      <!-- Mobile Hamburger Button -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden mt-3 max-w-7xl mx-auto glass-ios rounded-3xl p-6 shadow-2xl border border-white/60 dark:border-slate-800">
+      <div class="flex flex-col gap-4 font-semibold text-slate-800 dark:text-slate-200">
+        <a href="#about" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_about">Tentang Kami</a>
+        <a href="#services" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_services">Layanan & Solusi</a>
+        <a href="#projects" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_portfolio">Portofolio</a>
+        <a href="#advantages" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_advantages">Keunggulan</a>
+        <a href="#certifications" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_cert">Sertifikasi</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-blue-600 py-1" data-i18n="nav_contact">Kontak</a>
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <button onclick="toggleLang()" class="px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 text-xs font-bold">
+            Ganti Bahasa (<span class="lang-toggle-text">EN</span>)
+          </button>
+          <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-full border border-slate-300 dark:border-slate-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="hero-card">
-      <div class="terminal-head"><span></span><span></span><span></span></div>
-      <pre><code>$ whoami
-Fahmi Andriansyah
+  </header>
 
-role      : Industrial IoT & Cybersecurity
-focus     : Smart Manufacturing
-security  : OT/IT & AppSec
-stack     : ESP32 · LoRa · Python
-            Laravel · Node.js · Linux
+  <main class="relative z-10 w-full pt-28">
 
-status    : BUILDING INDUSTRIAL SYSTEMS</code></pre>
+    <!-- 4. HERO SECTION WITH PROJECT CALCULATOR WIDGET -->
+    <section id="home" class="min-h-[92vh] flex flex-col justify-center items-center px-4 sm:px-6 py-12 text-center reveal active">
+      
+      <!-- Tagline Pill Badge with Pulse -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-ios mb-6">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+        </span>
+        <span class="text-xs font-bold tracking-wider uppercase text-blue-600 dark:text-cyan-400" data-i18n="tagline">#IndustrialIoT · #SmartManufacturing · #OTITSecurity</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6 max-w-5xl">
+        <span data-i18n="hero_title_1">Solusi Cerdas & Rekayasa</span> <br class="hidden sm:inline"/>
+        <span class="text-gradient" data-i18n="hero_title_2">Industrial IoT & Smart Factory.</span>
+      </h1>
+
+      <!-- Subtitle Description -->
+      <p class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl font-normal leading-relaxed mb-10" data-i18n="hero_desc">
+        Fahmi Andriansyah menghadirkan solusi teknologi terpadu: integrasi mesin pabrik, telemetri nirkabel LoRa/Modbus, arsitektur OT/IT berbasis ISA-95, serta standar keamanan siber IEC 62443 untuk transformasi industri Anda.
+      </p>
+
+      <!-- INTERACTIVE SOLUTION CALCULATOR WIDGET (Inspired by cargo.xpdc.co.id Cek Resi/Ongkir Bar) -->
+      <div class="w-full max-w-4xl mx-auto mb-10 glass-modern rounded-3xl p-4 sm:p-6 shadow-2xl border border-white/60 dark:border-slate-800">
+        <div class="flex items-center gap-2 mb-3 text-blue-600 dark:text-cyan-400 font-extrabold text-xs uppercase tracking-wider text-left">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <span data-i18n="calc_badge">ESTIMASI SOLUSI PROYEK</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center text-left">
+          <!-- Service Select -->
+          <div class="md:col-span-5">
+            <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1" data-i18n="calc_service_lbl">Pilih Kategori Solusi:</label>
+            <select id="calcService" onchange="calculateSolution()" class="w-full bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="iiot">Industrial IoT & Mesin Telemetri (LoRa/Modbus)</option>
+              <option value="manufacturing">Smart Manufacturing (OEE & Digital Andon)</option>
+              <option value="otit">OT/IT Integration & Arsitektur ISA-95</option>
+              <option value="security">Cybersecurity Audit & Hardening IEC 62443</option>
+              <option value="platform">Custom Web Platform & Dashboard Enterprise</option>
+              <option value="monitoring">Predictive Maintenance & Grafana Observability</option>
+            </select>
+          </div>
+
+          <!-- Scope Select -->
+          <div class="md:col-span-4">
+            <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1" data-i18n="calc_scale_lbl">Skala Implementasi:</label>
+            <select id="calcScale" onchange="calculateSolution()" class="w-full bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="pilot">Proof of Concept / Pilot (1-2 Mesin)</option>
+              <option value="medium">Medium Workstation Line (3-10 Mesin)</option>
+              <option value="enterprise">Enterprise Plant-Wide Deployment</option>
+            </select>
+          </div>
+
+          <!-- Calculate CTA -->
+          <div class="md:col-span-3 pt-4 md:pt-0">
+            <label class="hidden md:block text-[11px] font-bold text-transparent mb-1">Aksi</label>
+            <button onclick="calculateSolution()" class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2" data-i18n="calc_btn">
+              Hitung Estimasi
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Box Container -->
+        <div id="calcResult"></div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#services" class="bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-blue-500/25" data-i18n="hero_btn_explore">
+          Eksplorasi Layanan
+        </a>
+        <a href="#projects" class="glass-ios text-slate-800 dark:text-white px-7 py-3.5 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-md">
+          Lihat Portofolio
+        </a>
+        <a href="#contact" class="bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 text-white px-7 py-3.5 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-md" data-i18n="hero_btn_contact">
+          Konsultasi Sekarang
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. MARQUEE: TECH STACK & INDUSTRIAL PROTOCOLS (Matching cargo.xpdc marquee) -->
+    <section class="py-7 border-y border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md overflow-hidden">
+      <div class="marquee-track flex items-center gap-12 font-mono text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>ESP32 & Raspberry Pi</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-500"></span>Modbus RTU / TCP</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>LoRaWAN 915/920 MHz</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>ISA-95 Architecture</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500"></span>IEC 62443 Cybersecurity</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Laravel & Node.js</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span>Docker & Linux</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>PostgreSQL & InfluxDB</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-orange-500"></span>Prometheus & Grafana</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span>MQTT over TLS</span>
+        <!-- Duplicate for continuous marquee -->
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>ESP32 & Raspberry Pi</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-500"></span>Modbus RTU / TCP</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>LoRaWAN 915/920 MHz</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>ISA-95 Architecture</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500"></span>IEC 62443 Cybersecurity</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Laravel & Node.js</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span>Docker & Linux</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>PostgreSQL & InfluxDB</span>
+      </div>
+    </section>
+
+    <!-- 6. WELCOME / ABOUT COMPANY PROFILE SECTION -->
+    <section id="about" class="py-24 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto glass-ios rounded-[2.5rem] p-6 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-12">
+        
+        <!-- Left: Interactive Terminal / Architecture Card -->
+        <div class="w-full lg:w-5/12 code-window shadow-2xl">
+          <div class="code-window-header">
+            <div class="code-dot bg-red-500"></div>
+            <div class="code-dot bg-amber-500"></div>
+            <div class="code-dot bg-emerald-500"></div>
+            <span class="text-xs text-slate-400 font-mono ml-2">fahmi@industrial-core:~</span>
+          </div>
+          <div class="p-6 text-xs sm:text-sm text-slate-300 font-mono leading-relaxed space-y-3">
+            <p class="text-cyan-400">$ whoami --engineering</p>
+            <p><span class="text-slate-500">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span> <strong class="text-white">Fahmi Andriansyah</strong></p>
+            <p><span class="text-slate-500">discipline:</span> Industrial IoT & OT/IT Architecture</p>
+            <p><span class="text-slate-500">security&nbsp;&nbsp;:</span> IEC 62443 · ISO 27001 · CEH Certified</p>
+            <p><span class="text-slate-500">protocols&nbsp;:</span> Modbus RTU · LoRaWAN · MQTT · REST</p>
+            <p><span class="text-slate-500">stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span> ESP32 · Python · Laravel · Node · Grafana</p>
+            <div class="pt-3 border-t border-slate-800 text-emerald-400">
+              ● STATUS: ACTIVE & READY FOR CONSULTATION
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Executive Overview -->
+        <div class="w-full lg:w-7/12 text-left">
+          <div class="inline-block text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 mb-3">01 / PROFIL PERUSAHAAN & REKAYASA</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
+            Menghubungkan Lantai Pabrik Fisik ke Keputusan Strategis Digital.
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-6">
+            Sebagai praktisi dan konsultan rekayasa <strong>Industrial IoT & OT/IT Cybersecurity</strong>, saya merancang dan mengimplementasikan sistem menyeluruh dari tingkat sensor perangkat keras, gateway transmisi nirkabel, hingga platform web dashboard enterprise.
+          </p>
+          <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8">
+            Fokus utama kami adalah solusi yang <strong>terukur (measurable)</strong>, <strong>mudah dirawat (maintainable)</strong>, dan <strong>terlindungi secara aman (secure by design)</strong> berdasarkan standar arsitektur manufaktur global ISA-95 serta kerangka keamanan siber IEC 62443.
+          </p>
+
+          <!-- Core Pillars -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-center">
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-900/50">
+              <span class="block text-xl font-extrabold text-blue-600 dark:text-cyan-400">IIoT</span>
+              <span class="text-xs text-slate-500 font-medium">End-to-End</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-900/50">
+              <span class="block text-xl font-extrabold text-blue-600 dark:text-cyan-400">OT/IT</span>
+              <span class="text-xs text-slate-500 font-medium">Purdue Model</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-900/50">
+              <span class="block text-xl font-extrabold text-blue-600 dark:text-cyan-400">Sec</span>
+              <span class="text-xs text-slate-500 font-medium">IEC 62443</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-900/50">
+              <span class="block text-xl font-extrabold text-blue-600 dark:text-cyan-400">24/7</span>
+              <span class="text-xs text-slate-500 font-medium">Telemetry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CORE SERVICES & SOLUTIONS SECTION (6 Enterprise Services with Modals) -->
+    <section id="services" class="py-24 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto text-center mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 block mb-2" data-i18n="srv_title">LAYANAN & SOLUSI UNGGULAN</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+          Kapabilitas Rekayasa Terpadu
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base" data-i18n="srv_sub">
+          Layanan menyeluruh dari sensor fisik di lantai pabrik hingga dashboard analitik berbasis cloud.
+        </p>
+      </div>
+
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Service 1: Industrial IoT -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-blue-600 dark:text-cyan-400">01 / HARDWARE & TELEMETRI</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Industrial IoT & Edge Devices</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Pengembangan perangkat edge ESP32 & Raspberry Pi, sensor arus/tegangan, akuisisi data Modbus RTU/TCP, serta transmisi nirkabel jarak jauh LoRaWAN.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">ESP32</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Modbus RTU</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">LoRaWAN</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('iiot')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+        <!-- Service 2: Smart Manufacturing -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-cyan-100 dark:bg-cyan-950/70 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400">02 / SMART FACTORY</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Smart Manufacturing & OEE</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Sistem Overall Equipment Effectiveness (OEE) otomatis, Digital Andon untuk penanganan downtime seketika, dan pelacakan pergerakan aset berbasis RFID.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">OEE System</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Digital Andon</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">RFID Tracking</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('manufacturing')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-cyan-600 hover:text-white dark:hover:bg-cyan-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+        <!-- Service 3: OT/IT Architecture -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7M4 7c0-2 1.5-3 3.5-3h9c2 0 3.5 1 3.5 3M4 7h16m-8 4v6m-4-3h8"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">03 / ARSITEKTUR ENTERPRISE</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">OT/IT Integration & ISA-95</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Arsitektur terstruktur standar ISA-95 & Purdue Model. Mengintegrasikan level sensor/PLC dengan enterprise IT, SCADA, dan ERP melalui API secure middleware.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">ISA-95</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Purdue Model</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">SCADA to Cloud</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('otit')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+        <!-- Service 4: Cybersecurity & Hardening -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-red-100 dark:bg-red-950/70 text-red-600 dark:text-red-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-red-600 dark:text-red-400">04 / OT/IT CYBERSECURITY</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Cybersecurity & Hardening</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Penetration testing aplikasi, audit API, validasi kerentanan, hardening server Linux/Edge, serta implementasi kontrol keamanan berbasis IEC 62443 & ISO 27001.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">IEC 62443</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">CEH Method</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Linux Hardening</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('security')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+        <!-- Service 5: Custom Web & Platform Development -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">05 / SOFTWARE ENGINEERING</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Custom Web Platform</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Pengembangan web application & REST API menggunakan Laravel, Node.js, PostgreSQL, dan container Docker dengan performa tinggi dan skalabilitas tangguh.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Laravel</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Node.js</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">PostgreSQL</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('platform')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-amber-600 hover:text-white dark:hover:bg-amber-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+        <!-- Service 6: Observability & Predictive Maintenance -->
+        <div class="glass-ios rounded-3xl p-8 flex flex-col justify-between text-left group">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </div>
+            <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">06 / TELEMETRI OBSERVABILITY</span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">Predictive Maintenance</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+              Monitoring getaran, temperatur, konsumsi energi listrik, serta kondisi mesin secara terus-menerus menggunakan visualisasi Grafana & database time-series InfluxDB.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Grafana</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">InfluxDB</span>
+              <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-mono">Anomaly Alert</span>
+            </div>
+          </div>
+          <button onclick="openServiceModal('monitoring')" class="w-full bg-slate-100 dark:bg-slate-800/80 hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 text-slate-800 dark:text-slate-200 text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            <span>Detail Solusi & Arsitektur</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. PORTFOLIO & CASE STUDIES (Interactive Filtering & Project Detail Links) -->
+    <section id="projects" class="py-24 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 block mb-2" data-i18n="port_title">PORTOFOLIO & STUDI KASUS</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+          Sistem Produksi Nyata
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base" data-i18n="port_sub">
+          Implementasi nyata sistem monitoring, efisiensi manufaktur, dan keamanan OT/IT di lingkungan produksi.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+          <button onclick="filterProjects('all', this)" class="filter-btn active px-4 py-2 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300" data-i18n="filter_all">Semua Proyek</button>
+          <button onclick="filterProjects('manufacturing', this)" class="filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300" data-i18n="filter_manufacturing">Smart Manufacturing</button>
+          <button onclick="filterProjects('iiot', this)" class="filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300" data-i18n="filter_iiot">Industrial IoT & Hardware</button>
+          <button onclick="filterProjects('security', this)" class="filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300" data-i18n="filter_security">Cybersecurity & Standard</button>
+          <button onclick="filterProjects('software', this)" class="filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300" data-i18n="filter_software">Platform & Monitoring</button>
+        </div>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div id="projectGrid" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+        
+        <!-- Project 1: OEE Computer Stitching -->
+        <a href="projects/oee.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="manufacturing software">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img src="assets/images/projects/oee-dashboard.png" alt="OEE Dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-4 left-4 bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">SMART MANUFACTURING</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">OEE — Computer Stitching</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Visibilitas ketersediaan mesin (Availability), output produksi (Performance), dan produk cacat (Quality) secara real-time di shop floor.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">Raspberry Pi · Laravel</span>
+          </div>
+        </a>
+
+        <!-- Project 2: Digital Andon -->
+        <a href="projects/digital-andon.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="manufacturing iiot">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img src="assets/images/projects/andon-dashboard.png" alt="Digital Andon Dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-4 left-4 bg-cyan-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">IIoT · TPM</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">Digital Andon & Asset Movement</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Sistem panggilan bantuan stasiun kerja, pelacakan respon teknisi, waktu perbaikan (MTTR), dan tracking pergerakan aset pabrik.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">ESP32 · WebSockets</span>
+          </div>
+        </a>
+
+        <!-- Project 3: Predictive Maintenance -->
+        <a href="projects/predictive-maintenance.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="iiot software">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img src="assets/images/projects/predictive-maintenance.png" alt="Predictive Maintenance Dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">PREDICTIVE MAINTENANCE</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-cyan-400 transition-colors">Machine Condition Monitoring</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Monitoring getaran dan tekanan mesin untuk deteksi anomali kegagalan mekanikal sebelum mesin mengalami downtime fatal.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">Grafana · InfluxDB</span>
+          </div>
+        </a>
+
+        <!-- Project 4: Chamber Conveyor -->
+        <a href="projects/chamber-monitoring.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="iiot">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img src="assets/images/projects/chamber-monitoring.png" alt="Chamber Conveyor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-4 left-4 bg-purple-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">PROCESS MONITORING</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-cyan-400 transition-colors">Chamber Conveyor Monitoring</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Pemantauan temperatur permukaan obyek bergerak dalam chamber oven conveyor menggunakan transmisi nirkabel LoRa.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-purple-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">LoRa · Thermopile</span>
+          </div>
+        </a>
+
+        <!-- Project 5: Power Meter Modbus RTU -->
+        <a href="projects/power-meter.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="iiot software">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img src="assets/images/projects/power-meter.png" alt="Power Meter Dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-4 left-4 bg-amber-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">ENERGY MONITORING</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-cyan-400 transition-colors">Power Meter — Modbus RTU</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Akuisisi parameter kelistrikan (tegangan, arus, daya, Cos Phi) dari panel distribusi ke dashboard monitoring energi pabrik.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-amber-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">RS485 · Modbus · MQTT</span>
+          </div>
+        </a>
+
+        <!-- Project 6: Object Detection Jetson Nano -->
+        <a href="projects/object-detection.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="software iiot">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 mx-auto flex items-center justify-center mb-2">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </div>
+                <span class="text-xs font-mono font-bold text-indigo-300">EDGE AI COMPUTER VISION</span>
+              </div>
+              <span class="absolute top-4 left-4 bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">COMPUTER VISION</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">Object Detection — X-Ray Tray</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Deteksi otomatis barang pada baki scanner X-Ray menggunakan Jetson Nano dan pemrosesan visual berkecepatan tinggi.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">Jetson Nano · OpenCV</span>
+          </div>
+        </a>
+
+        <!-- Project 7: Warehouse Monitoring -->
+        <a href="projects/warehouse-monitoring.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="iiot">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 mx-auto flex items-center justify-center mb-2">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                </div>
+                <span class="text-xs font-mono font-bold text-teal-300">SMART WAREHOUSE</span>
+              </div>
+              <span class="absolute top-4 left-4 bg-teal-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">ENVIRONMENT</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-cyan-400 transition-colors">Warehouse Temperature & Humidity</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Sensor nirkabel suhu dan kelembaban ruang penyimpanan bahan baku untuk menjaga kualitas produk tetap prima.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-teal-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">ESP32 · DHT22 · LoRa</span>
+          </div>
+        </a>
+
+        <!-- Project 8: ISA-95 Architecture -->
+        <a href="projects/isa95.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="security software">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 mx-auto flex items-center justify-center mb-2">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <span class="text-xs font-mono font-bold text-blue-300">PURDUE REFERENCE MODEL</span>
+              </div>
+              <span class="absolute top-4 left-4 bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">ARCHITECTURE</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">Core IIoT Architecture (ISA-95)</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Desain arsitektur manufaktur bertingkat (Level 0 - Level 4) untuk memisahkan jaringan mesin dan jaringan IT korporasi.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">ISA-95 · IDMZ</span>
+          </div>
+        </a>
+
+        <!-- Project 9: IEC 62443 Security -->
+        <a href="projects/iec62443.html" class="project-card glass-ios rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="security">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-gradient-to-br from-slate-900 via-rose-950 to-slate-900 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center mb-2">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <span class="text-xs font-mono font-bold text-rose-300">INDUSTRIAL SECURITY STANDARD</span>
+              </div>
+              <span class="absolute top-4 left-4 bg-rose-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">CYBERSECURITY</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-cyan-400 transition-colors">IEC 62443 IoT Security Standard</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Penerapan kontrol keamanan perangkat keras, enkripsi transmisi, segmentasi conduit/zones, dan otentikasi API terverifikasi.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs font-semibold text-rose-600 dark:text-cyan-400">
+            <span>Lihat Dokumentasi Teknis →</span>
+            <span class="text-slate-400 font-mono">IEC 62443 · ISO 27001</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 9. KEUNGGULAN (ADVANTAGES / WHY CHOOSE US) -->
+    <section id="advantages" class="py-24 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto text-center mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 block mb-2">NILAI LEBIH & REKAYASA</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+          Keunggulan Solusi Fahmi Andriansyah
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base">
+          Kombinasi pengalaman lapangan manufaktur, keahlian rekayasa perangkat lunak, dan kepatuhan standar keamanan industri.
+        </p>
+      </div>
+
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        <div class="glass-ios p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-cyan-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <h4 class="font-extrabold text-base text-slate-900 dark:text-white mb-2">Integrasi End-to-End</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Dari rangkaian solder dan wiring sensor fisik, PLC, gateway komunikasi, hingga aplikasi cloud terpusat.</p>
+        </div>
+
+        <div class="glass-ios p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <h4 class="font-extrabold text-base text-slate-900 dark:text-white mb-2">Security-First Mindset</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Sertifikasi Certified Ethical Hacker (CEH) dan kepatuhan standar industri IEC 62443 memastikan data tidak bocor.</p>
+        </div>
+
+        <div class="glass-ios p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h4 class="font-extrabold text-base text-slate-900 dark:text-white mb-2">Keandalan 24/7</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Arsitektur edge dengan local buffering menjamin data telemetri tidak hilang saat terjadi gangguan koneksi internet.</p>
+        </div>
+
+        <div class="glass-ios p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+          </div>
+          <h4 class="font-extrabold text-base text-slate-900 dark:text-white mb-2">Kustomisasi Fleksibel</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Sistem dibangun khusus menyesuaikan mesin unik dan alur kerja pabrik Anda tanpa ketergantungan lisensi vendor kaku.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. SKALA & CAPAIAN METRICS (Matching cargo.xpdc capaian section) -->
+    <section class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto glass-ios rounded-[3rem] p-8 sm:p-14 text-center">
+        <h2 class="text-2xl sm:text-4xl font-extrabold mb-4 text-slate-900 dark:text-white">Skala & Capaian Rekayasa</h2>
+        <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-10 text-sm sm:text-base">
+          Bukti dedikasi dalam membangun sistem otomatisasi industri yang kokoh dan berkelanjutan.
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <div class="text-3xl sm:text-5xl font-extrabold text-blue-600 dark:text-cyan-400 font-mono mb-1">15+</div>
+            <div class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Sistem Produksi Aktif</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-5xl font-extrabold text-blue-600 dark:text-cyan-400 font-mono mb-1">99.9%</div>
+            <div class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Keandalan Telemetri</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-5xl font-extrabold text-blue-600 dark:text-cyan-400 font-mono mb-1">10+</div>
+            <div class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Protokol & Framework</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-5xl font-extrabold text-blue-600 dark:text-cyan-400 font-mono mb-1">5+</div>
+            <div class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Sertifikasi Keamanan & IoT</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. CERTIFICATIONS & CREDENTIALS -->
+    <section id="certifications" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 block mb-2">KREDENSIAL PROFESIONAL</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-4">
+          Sertifikasi & Pembelajaran Berkelanjutan
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm">
+          Standar kompetensi resmi di bidang keamanan siber, Internet of Things, dan sains data.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 sm:gap-10">
+        <div class="glass-ios p-4 rounded-2xl flex flex-col items-center hover:scale-105 transition-transform w-36 sm:w-44">
+          <img src="assets/images/badges/ceh.png" alt="Certified Ethical Hacker Badge" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 text-center">Certified Ethical Hacker</span>
+        </div>
+        <div class="glass-ios p-4 rounded-2xl flex flex-col items-center hover:scale-105 transition-transform w-36 sm:w-44">
+          <img src="assets/images/badges/cybersecurity.png" alt="Cybersecurity Badge" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 text-center">Cybersecurity</span>
+        </div>
+        <div class="glass-ios p-4 rounded-2xl flex flex-col items-center hover:scale-105 transition-transform w-36 sm:w-44">
+          <img src="assets/images/badges/iot.png" alt="IoT Badge" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 text-center">Internet of Things</span>
+        </div>
+        <div class="glass-ios p-4 rounded-2xl flex flex-col items-center hover:scale-105 transition-transform w-36 sm:w-44">
+          <img src="assets/images/badges/data-science.png" alt="Data Science Badge" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 text-center">Data Science</span>
+        </div>
+        <div class="glass-ios p-4 rounded-2xl flex flex-col items-center hover:scale-105 transition-transform w-36 sm:w-44">
+          <img src="assets/images/badges/ethical-hacker.png" alt="Ethical Hacker Badge" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-2 text-center">Ethical Hacking</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. CONTACT & INQUIRY SECTION (Featuring direct LinkedIn & Gmail) -->
+    <section id="contact" class="py-24 px-4 sm:px-6 reveal">
+      <div class="max-w-7xl mx-auto glass-ios rounded-[3rem] p-6 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-12 border border-blue-500/20">
+        
+        <!-- Left Column: Direct Contact Info -->
+        <div class="w-full lg:w-5/12 text-left">
+          <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 block mb-2">KONSULTASI & KOLABORASI</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+            Mari Bangun Solusi Industri Bersama.
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
+            Siap berdiskusi untuk proyek Industrial IoT, implementasi OEE Smart Manufacturing, integrasi arsitektur OT/IT, maupun audit keamanan siber infrastruktur Anda.
+          </p>
+
+          <!-- Verified Channels -->
+          <div class="space-y-4">
+            <!-- Gmail -->
+            <a href="mailto:andriansite@gmail.com" class="glass-modern p-4 rounded-2xl flex items-center gap-4 hover:border-blue-500 transition group">
+              <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-950/70 text-red-600 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="block text-xs text-slate-500 font-semibold">Official Email / Gmail</span>
+                <strong class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-500 truncate block">andriansite@gmail.com</strong>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/fahmi-andriansyah-b73a58225/" target="_blank" rel="noopener noreferrer" class="glass-modern p-4 rounded-2xl flex items-center gap-4 hover:border-blue-500 transition group">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="block text-xs text-slate-500 font-semibold">LinkedIn Profile</span>
+                <strong class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-500 truncate block">Fahmi Andriansyah</strong>
+              </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/maydef" target="_blank" rel="noopener noreferrer" class="glass-modern p-4 rounded-2xl flex items-center gap-4 hover:border-blue-500 transition group">
+              <div class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="block text-xs text-slate-500 font-semibold">GitHub Repository</span>
+                <strong class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-500 truncate block">github.com/maydef</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Consultation Request Form -->
+        <div class="w-full lg:w-7/12 glass-modern p-6 sm:p-8 rounded-3xl border border-white/60 dark:border-slate-800 text-left">
+          <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Formulir Diskusi Proyek</h3>
+          <p class="text-xs text-slate-500 mb-6">Kirimkan rincian kebutuhan Anda, tanggapan akan disampaikan maksimal 1x24 jam.</p>
+
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap</label>
+                <input type="text" id="formName" required placeholder="Cth: Budi Santoso" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Perusahaan / Organisasi</label>
+                <input type="text" id="formCompany" placeholder="Cth: PT Manufaktur Jaya" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nomor WhatsApp / HP</label>
+                <input type="tel" id="formPhone" placeholder="Cth: 08123456789" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori Kebutuhan</label>
+                <select id="formCategory" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                  <option value="Industrial IoT">Industrial IoT & Mesin Telemetri</option>
+                  <option value="Smart Manufacturing (OEE/Andon)">Smart Manufacturing (OEE / Digital Andon)</option>
+                  <option value="OT/IT ISA-95 Architecture">Arsitektur OT/IT & Standarisasi ISA-95</option>
+                  <option value="Cybersecurity Audit">Audit Keamanan Siber & IEC 62443</option>
+                  <option value="Custom Web Platform">Custom Web Platform & Dashboard</option>
+                  <option value="Predictive Maintenance">Predictive Maintenance & Grafana</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Ringkasan Kebutuhan & Ekspektasi</label>
+              <textarea id="formMessage" rows="3" required placeholder="Jelaskan kebutuhan mesin, sistem saat ini, atau tujuan proyek Anda..." class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+              <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                <span>Kirim via Email Resmi</span>
+              </button>
+              <button type="button" onclick="sendViaWhatsApp()" class="sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-xl text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                <span>Diskusi WhatsApp</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 13. CORPORATE FOOTER (Matching cargo.xpdc.co.id layout & styling) -->
+  <footer class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border-t border-slate-200 dark:border-slate-800 pt-16 pb-10 px-4 sm:px-6 relative z-10 text-left">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      
+      <!-- Col 1: Brand & Contacts -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-sm shadow">
+            FA
+          </div>
+          <span class="font-extrabold text-slate-900 dark:text-white tracking-tight">FAHMI ANDRIANSYAH</span>
+        </div>
+        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+          Solusi rekayasa Industrial IoT, Smart Manufacturing, arsitektur integrasi OT/IT standar ISA-95, serta kepatuhan keamanan siber IEC 62443.
+        </p>
+        <div class="text-xs text-slate-600 dark:text-slate-400 space-y-1.5">
+          <p class="flex items-center gap-2">
+            <span class="text-blue-500 font-bold">Email:</span>
+            <a href="mailto:andriansite@gmail.com" class="hover:text-blue-500 font-medium">andriansite@gmail.com</a>
+          </p>
+          <p class="flex items-center gap-2">
+            <span class="text-blue-500 font-bold">LinkedIn:</span>
+            <a href="https://www.linkedin.com/in/fahmi-andriansyah-b73a58225/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 font-medium">Fahmi Andriansyah</a>
+          </p>
+          <p class="flex items-center gap-2">
+            <span class="text-blue-500 font-bold">GitHub:</span>
+            <a href="https://github.com/maydef" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 font-medium">maydef.github.io</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Col 2: Services Quick Links -->
+      <div>
+        <h4 class="font-bold text-sm tracking-wider uppercase text-slate-900 dark:text-white mb-4">Layanan Unggulan</h4>
+        <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2.5">
+          <li><button onclick="openServiceModal('iiot')" class="hover:text-blue-500 transition text-left">Industrial IoT & Modbus/LoRa</button></li>
+          <li><button onclick="openServiceModal('manufacturing')" class="hover:text-blue-500 transition text-left">Smart Manufacturing & OEE</button></li>
+          <li><button onclick="openServiceModal('otit')" class="hover:text-blue-500 transition text-left">OT/IT Integration & ISA-95</button></li>
+          <li><button onclick="openServiceModal('security')" class="hover:text-blue-500 transition text-left">Cybersecurity & IEC 62443</button></li>
+          <li><button onclick="openServiceModal('platform')" class="hover:text-blue-500 transition text-left">Custom Web & Dashboard</button></li>
+          <li><button onclick="openServiceModal('monitoring')" class="hover:text-blue-500 transition text-left">Predictive Maintenance</button></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Selected Projects -->
+      <div>
+        <h4 class="font-bold text-sm tracking-wider uppercase text-slate-900 dark:text-white mb-4">Studi Kasus Proyek</h4>
+        <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2.5">
+          <li><a href="projects/oee.html" class="hover:text-blue-500 transition">OEE Computer Stitching</a></li>
+          <li><a href="projects/digital-andon.html" class="hover:text-blue-500 transition">Digital Andon & Asset Tracking</a></li>
+          <li><a href="projects/predictive-maintenance.html" class="hover:text-blue-500 transition">Machine Condition Monitoring</a></li>
+          <li><a href="projects/chamber-monitoring.html" class="hover:text-blue-500 transition">Chamber Conveyor LoRa</a></li>
+          <li><a href="projects/power-meter.html" class="hover:text-blue-500 transition">Power Meter Modbus RTU</a></li>
+          <li><a href="projects/iec62443.html" class="hover:text-blue-500 transition">IEC 62443 IoT Security Standard</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Operational & Standards -->
+      <div>
+        <h4 class="font-bold text-sm tracking-wider uppercase text-slate-900 dark:text-white mb-4">Standar & Operasional</h4>
+        <div class="text-xs text-slate-600 dark:text-slate-400 space-y-2 mb-4">
+          <p><strong>Jam Konsultasi:</strong> Senin – Sabtu (08.00 – 18.00 WIB)</p>
+          <p><strong>Monitoring Server:</strong> 24/7 Automated Observability</p>
+          <p><strong>Kepatuhan Standar:</strong> IEC 62443, ISO/IEC 27001, ISA-95 Purdue Model</p>
+        </div>
+        <div class="pt-2">
+          <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+            Jadwalkan Konsultasi
+          </a>
+        </div>
+      </div>
+
     </div>
-  </div>
-</section>
 
-<section id="about" class="section">
-  <div class="section-label">01 / ABOUT</div>
-  <div class="two-col">
-    <div>
-      <h2>From sensors to decisions.</h2>
+    <!-- Copyright Bar -->
+    <div class="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+      <span>© 2026 Fahmi Andriansyah. All rights reserved.</span>
+      <span>Industrial IoT · Smart Manufacturing · OT/IT Cybersecurity</span>
     </div>
-    <div>
-      <p>I design and develop Industrial IoT solutions across the full chain: sensors and controllers on the shop floor, wireless communication and edge gateways, APIs and databases, dashboards, monitoring and security controls.</p>
-      <p>My work combines manufacturing knowledge with IT engineering and cybersecurity, with an emphasis on systems that are measurable, maintainable and secure.</p>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<section id="expertise" class="section dark">
-  <div class="section-label">02 / EXPERTISE</div>
-  <h2>Core capabilities</h2>
-  <div class="cards">
-    <article><span class="num">01</span><h3>Industrial IoT</h3><p>ESP32, Raspberry Pi, sensors, LoRa, Modbus RTU, edge gateways and machine data acquisition.</p></article>
-    <article><span class="num">02</span><h3>Smart Manufacturing</h3><p>OEE, Digital Andon, predictive maintenance, process monitoring, asset movement and production visibility.</p></article>
-    <article><span class="num">03</span><h3>OT/IT Architecture</h3><p>ISA-95, Purdue Model, network segmentation, API integration, lifecycle and governance.</p></article>
-    <article><span class="num">04</span><h3>Cybersecurity</h3><p>IEC 62443, ISO/IEC 27001, secure APIs, vulnerability research, source-code review and security validation.</p></article>
-    <article><span class="num">05</span><h3>Software & Platform</h3><p>Laravel, Node.js/Express, PostgreSQL, Linux, Docker, dashboards and monitoring stacks.</p></article>
-    <article><span class="num">06</span><h3>Monitoring</h3><p>Prometheus, Grafana, Telegraf, InfluxDB, Node Exporter and infrastructure observability.</p></article>
-  </div>
-</section>
+  <!-- Contact Form Scripts -->
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('formName').value;
+      const company = document.getElementById('formCompany').value;
+      const phone = document.getElementById('formPhone').value;
+      const category = document.getElementById('formCategory').value;
+      const message = document.getElementById('formMessage').value;
 
-<section id="projects" class="section">
-  <div class="section-label">03 / SELECTED PROJECTS</div>
-  <div class="section-title-row"><h2>Industrial systems in production</h2><p>Selected work across manufacturing, monitoring and digitalization.</p></div>
-  <div class="project-grid">
-    <a class="project" href="projects/oee.html">
-      <img src="assets/images/projects/oee-dashboard.png" alt="OEE dashboard">
-      <div><small>SMART MANUFACTURING</small><h3>OEE — Computer Stitching</h3><p>Machine availability, production output and quality visibility.</p></div>
-    </a>
-    <a class="project" href="projects/digital-andon.html">
-      <img src="assets/images/projects/andon-dashboard.png" alt="Digital Andon dashboard">
-      <div><small>IIoT · TPM</small><h3>Digital Andon & Asset Movement</h3><p>Response time, repair time, downtime and asset tracking.</p></div>
-    </a>
-    <a class="project" href="projects/predictive-maintenance.html">
-      <img src="assets/images/projects/predictive-maintenance.png" alt="Predictive maintenance dashboard">
-      <div><small>PREDICTIVE MAINTENANCE</small><h3>Machine Condition Monitoring</h3><p>Vibration, pressure and machine-state data for anomaly detection.</p></div>
-    </a>
-    <a class="project" href="projects/object-detection.html">
-      <div class="project-placeholder">VISION</div>
-      <div><small>COMPUTER VISION</small><h3>Object Detection — X-Ray Tray</h3><p>Jetson Nano and image processing for tray-object detection.</p></div>
-    </a>
-    <a class="project" href="projects/chamber-monitoring.html">
-      <img src="assets/images/projects/chamber-monitoring.png" alt="Chamber conveyor monitoring">
-      <div><small>PROCESS MONITORING</small><h3>Chamber Conveyor Monitoring</h3><p>Surface object temperature monitoring using LoRa.</p></div>
-    </a>
-    <a class="project" href="projects/warehouse-monitoring.html">
-      <div class="project-placeholder">ENV</div>
-      <div><small>ENVIRONMENTAL MONITORING</small><h3>Warehouse Temperature & Humidity</h3><p>DHT22 + ESP32 + LoRa for environmental visibility.</p></div>
-    </a>
-    <a class="project" href="projects/isa95.html">
-      <div class="project-placeholder">ISA-95</div>
-      <div><small>ARCHITECTURE</small><h3>Core IIoT Architecture</h3><p>ISA-95 and Purdue-oriented architecture for manufacturing systems.</p></div>
-    </a>
-    <a class="project" href="projects/iec62443.html">
-      <div class="project-placeholder">OT SEC</div>
-      <div><small>CYBERSECURITY</small><h3>IEC 62443 IoT Security Standard</h3><p>Security controls for devices, APIs, networks and deployment.</p></div>
-    </a>
-    <a class="project" href="projects/power-meter.html">
-      <img src="assets/images/projects/power-meter.png" alt="Power meter dashboard">
-      <div><small>ENERGY MONITORING</small><h3>Power Meter — Modbus RTU</h3><p>Wireless acquisition and dashboarding of electrical measurements.</p></div>
-    </a>
-  </div>
-</section>
+      const subject = encodeURIComponent(`Inquiry Proyek dari ${name} (${company || 'Personal'}) - ${category}`);
+      const body = encodeURIComponent(
+        `Halo Fahmi Andriansyah,\n\nBerikut rincian inquiry konsultasi proyek:\n\n` +
+        `Nama: ${name}\n` +
+        `Perusahaan: ${company || '-'}\n` +
+        `WhatsApp/HP: ${phone || '-'}\n` +
+        `Kategori: ${category}\n\n` +
+        `Pesan Kebutuhan:\n${message}\n\n` +
+        `Salam,\n${name}`
+      );
 
-<section id="security" class="section dark">
-  <div class="section-label">04 / SECURITY ENGINEERING</div>
-  <div class="two-col">
-    <div><h2>Security is part of the architecture.</h2></div>
-    <div>
-      <p>Security work includes internal/public asset assessment, API security testing, source-code review, static analysis, vulnerability validation, Linux/server hardening and observability.</p>
-      <div class="tags"><span>IEC 62443</span><span>ISO/IEC 27001</span><span>COBIT</span><span>OWASP</span><span>API Security</span><span>Linux</span><span>OSINT</span></div>
-    </div>
-  </div>
-</section>
+      window.location.href = `mailto:andriansite@gmail.com?subject=${subject}&body=${body}`;
+    }
 
-<section id="certifications" class="section">
-  <div class="section-label">05 / CERTIFICATIONS</div>
-  <h2>Continuous learning</h2>
-  <div class="badges">
-    <img src="assets/images/badges/ceh.png" alt="CEH badge">
-    <img src="assets/images/badges/cybersecurity.png" alt="Introduction to Cybersecurity badge">
-    <img src="assets/images/badges/iot.png" alt="Introduction to IoT badge">
-    <img src="assets/images/badges/data-science.png" alt="Data science badge">
-    <img src="assets/images/badges/ethical-hacker.png" alt="Ethical hacker badge">
-  </div>
-</section>
+    function sendViaWhatsApp() {
+      const name = document.getElementById('formName').value || 'Calon Klien';
+      const company = document.getElementById('formCompany').value || '-';
+      const category = document.getElementById('formCategory').value;
+      const message = document.getElementById('formMessage').value || 'Saya ingin berdiskusi mengenai proyek industri / IT.';
 
-<section id="contact" class="section contact">
-  <div class="section-label">06 / CONTACT</div>
-  <h2>Let's build something useful.</h2>
-  <p>For Industrial IoT, smart manufacturing, OT/IT architecture or cybersecurity collaboration.</p>
-  <div class="actions">
-    <a class="btn primary" href="mailto:andriansite@gmail.com">Email Me</a>
-    <a class="btn ghost" href="https://github.com/maydef" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</section>
-</main>
+      const text = encodeURIComponent(
+        `Halo Fahmi Andriansyah,\n\nSaya ${name} (${company}) ingin berkonsultasi mengenai:\n` +
+        `Kategori: ${category}\n\n` +
+        `Rincian Kebutuhan:\n${message}\n\n` +
+        `Terima kasih.`
+      );
 
-<footer><span>© 2026 Fahmi Andriansyah</span><span>Industrial IoT · OT/IT · Cybersecurity</span></footer>
-<script src="assets/js/script.js"></script>
+      window.open(`https://wa.me/6281234567890?text=${text}`, '_blank');
+    }
+  </script>
+
+  <!-- Main JavaScript File -->
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

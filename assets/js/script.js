@@ -1,6 +1,6 @@
 /**
- * Fahmi Andriansyah — Company Profile & Tech Solutions
- * Inspired by cargo.xpdc.co.id aesthetic & interaction architecture
+ * Fahmi Andriansyah — Personal Portfolio & Engineering Solutions
+ * Industrial IoT, Smart Manufacturing & OT/IT Cybersecurity
  */
 
 // --- 1. PRELOADER ANTI-NYANGKUT ---
@@ -136,22 +136,22 @@ const dict = {
     tagline: "#IndustrialIoT · #SmartManufacturing · #OTITSecurity",
     hero_title_1: "Solusi Cerdas & Rekayasa",
     hero_title_2: "Industrial IoT & Smart Factory.",
-    hero_desc: "Maydef menghadirkan solusi teknologi terpadu: integrasi mesin pabrik, telemetri nirkabel LoRa/Modbus, arsitektur OT/IT berbasis ISA-95, serta standar keamanan siber IEC 62443 untuk transformasi industri Anda.",
-    hero_btn_explore: "Eksplorasi Layanan",
+    hero_desc: "Saya, Fahmi Andriansyah, menghadirkan solusi rekayasa teknologi terpadu: integrasi mesin pabrik, telemetri nirkabel LoRa/Modbus, arsitektur OT/IT berbasis ISA-95, serta standar keamanan siber IEC 62443 untuk transformasi industri Anda.",
+    hero_btn_explore: "Eksplorasi Keahlian",
     hero_btn_contact: "Konsultasi Sekarang",
-    nav_about: "Tentang Kami",
-    nav_services: "Layanan & Solusi",
+    nav_about: "Tentang Saya",
+    nav_services: "Keahlian & Layanan",
     nav_portfolio: "Portofolio",
     nav_advantages: "Keunggulan",
     nav_cert: "Sertifikasi",
     nav_contact: "Kontak",
     calc_badge: "ESTIMASI SOLUSI PROYEK",
     calc_title: "Konsultasikan Kebutuhan Industri & IT Anda",
-    calc_desc: "Pilih kategori layanan dan skala implementasi untuk mendapatkan ringkasan ruang lingkup kerja serta penawaran langsung.",
+    calc_desc: "Pilih kategori layanan dan skala implementasi untuk mendapatkan ringkasan ruang lingkup kerja serta diskusi langsung dengan saya.",
     calc_service_lbl: "Pilih Kategori Solusi:",
     calc_scale_lbl: "Skala Implementasi:",
     calc_btn: "Dapatkan Estimasi & Konsultasi",
-    srv_title: "Layanan & Solusi Unggulan",
+    srv_title: "Keahlian & Layanan Rekayasa",
     srv_sub: "Kapabilitas rekayasa menyeluruh dari sensor fisik di lantai pabrik hingga dashboard analitik berbasis cloud.",
     port_title: "Portofolio & Studi Kasus Proyek",
     port_sub: "Implementasi nyata sistem monitoring, efisiensi manufaktur, dan keamanan OT/IT di lingkungan produksi.",
@@ -165,11 +165,11 @@ const dict = {
     tagline: "#IndustrialIoT · #SmartManufacturing · #OTITSecurity",
     hero_title_1: "Smart Engineering Solutions for",
     hero_title_2: "Industrial IoT & Smart Factory.",
-    hero_desc: "Maydef provides integrated engineering solutions: shop-floor machine telemetry, LoRa/Modbus wireless networks, ISA-95 OT/IT architectures, and IEC 62443 cybersecurity standards to empower your digital transformation.",
-    hero_btn_explore: "Explore Services",
+    hero_desc: "I am Fahmi Andriansyah, an Industrial IoT & OT/IT Cybersecurity engineer providing integrated engineering solutions: shop-floor machine telemetry, LoRa/Modbus wireless networks, ISA-95 OT/IT architectures, and IEC 62443 cybersecurity standards.",
+    hero_btn_explore: "Explore Expertise",
     hero_btn_contact: "Get in Touch",
-    nav_about: "About Us",
-    nav_services: "Services & Solutions",
+    nav_about: "About Me",
+    nav_services: "Expertise & Services",
     nav_portfolio: "Portfolio",
     nav_advantages: "Advantages",
     nav_cert: "Certifications",
@@ -180,7 +180,7 @@ const dict = {
     calc_service_lbl: "Select Solution Category:",
     calc_scale_lbl: "Deployment Scale:",
     calc_btn: "Get Scope & Consult",
-    srv_title: "Core Services & Solutions",
+    srv_title: "Core Expertise & Engineering Services",
     srv_sub: "End-to-end engineering capabilities spanning physical shop floor sensors to cloud-native analytical platforms.",
     port_title: "Selected Projects & Case Studies",
     port_sub: "Production-grade implementations across manufacturing efficiency, industrial telemetry, and secure architectures.",
@@ -403,19 +403,19 @@ window.calculateSolution = () => {
 
 // --- 8. DIRECT CONTACT ACTIONS (WHATSAPP & GMAIL) ---
 window.openWhatsAppQuote = (serviceName, scaleName) => {
-  const text = encodeURIComponent(`Halo Maydef, menghadirkan,\n\nSaya tertarik untuk berdiskusi mengenai proyek:\n- Layanan: ${serviceName}\n- Skala: ${scaleName}\n\nMohon informasi ketersediaan jadwal konsultasi dan penawaran teknis. Terima kasih.`);
+  const text = encodeURIComponent(`Halo Fahmi Andriansyah,\n\nSaya tertarik untuk berdiskusi mengenai proyek:\n- Bidang: ${serviceName}\n- Skala: ${scaleName}\n\nMohon informasi ketersediaan jadwal konsultasi dan rincian teknis. Terima kasih.`);
   window.open(`https://wa.me/6281234567890?text=${text}`, '_blank');
 };
 
 window.openEmailQuote = (serviceName, scaleName) => {
   const subject = encodeURIComponent(`Inquiry Proyek: ${serviceName} (${scaleName})`);
-  const body = encodeURIComponent(`Halo Maydef,\n\nKami tertarik untuk mendiskusikan kebutuhan sistem kami:\n- Layanan: ${serviceName}\n- Cakupan Skala: ${scaleName}\n\nMohon waktu untuk berdiskusi lebih lanjut via Google Meet atau email balasan ini.\n\nSalam,\n[Nama / Perusahaan Anda]`);
+  const body = encodeURIComponent(`Halo Fahmi Andriansyah,\n\nSaya tertarik untuk mendiskusikan kebutuhan sistem kami:\n- Bidang/Keahlian: ${serviceName}\n- Cakupan Skala: ${scaleName}\n\nMohon waktu untuk berdiskusi lebih lanjut via Google Meet atau email balasan ini.\n\nSalam,\n[Nama / Perusahaan Anda]`);
   window.location.href = `mailto:andriansite@gmail.com?subject=${subject}&body=${body}`;
 };
 
 window.openConsultationWithService = (serviceName) => {
   const subject = encodeURIComponent(`Konsultasi Solusi: ${serviceName}`);
-  const body = encodeURIComponent(`Halo Maydef,\n\nSaya tertarik berkonsultasi mengenai solusi "${serviceName}".\n\nDetail kebutuhan kami:\n[Tuliskan kebutuhan Anda di sini]\n\nKontak kami:\nNama:\nPerusahaan:\nNo. WhatsApp/HP:\n\nTerima kasih.`);
+  const body = encodeURIComponent(`Halo Fahmi Andriansyah,\n\nSaya tertarik berkonsultasi mengenai solusi "${serviceName}".\n\nDetail kebutuhan kami:\n[Tuliskan kebutuhan Anda di sini]\n\nKontak kami:\nNama:\nPerusahaan:\nNo. WhatsApp/HP:\n\nTerima kasih.`);
   window.location.href = `mailto:andriansite@gmail.com?subject=${subject}&body=${body}`;
 };
 
